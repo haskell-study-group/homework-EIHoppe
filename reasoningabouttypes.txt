@@ -1,0 +1,56 @@
+apply f x = f x
+- calls the function f with the parameter x
+
+Can't think of anything else in haskell.
+
+-----------------------------------
+
+public TOut F(Funct<TIn,TOut> g, TIn x)
+{
+	g(x);
+}
+- calls the function g with the parameter x
+
+public TOut F(Funct<TIn,TOut> g, TIn x)
+{
+	// open up a file on the filesystem and map that to a TIn (can't be bothered to write the proper syntax for that)
+	// nah, don't need to worry about the real x, screw that, use our shiny new object
+	g(mappedFromFile);
+}
+- ignores the input parameter x and instead calls out to the filesystem and uses that to input into g
+
+public TOut F(Funct<TIn,TOut> g, TIn x)
+{
+	// while we're ignoring the input, let's call out to the filesystem and open up a file to map to a TOut
+	return mappedFromFile;
+}
+- ignores the input parameter x and instead just calls out to the filesystem to give us our output
+
+(the above two could be substituted for user input or a database call or whatever else I/O things you want)
+
+public TOut F(Funct<TIn,TOut> g, TIn x)
+{
+	// F doesn't feel like doing any real work today...
+	throw new NotImplementedException("too lazy to run g()");
+}
+- shrugs and throws an exception no matter the parameters
+
+class MyClass<TIn, TOut>
+{
+	private TOut realOut;
+	
+	public MyClass(TOut gimmeDatOutput)
+	{
+		realOut = gimmeDatOutput;
+	}
+
+	public TOut F(Funct<TIn,TOut> g, TIn x)
+	{
+		return realOut;
+	}
+}
+- ignores the input parameter and just returns the object the class was constructed with.
+
+Sky is more or less the limit with C# as the question is posed. Any sort of nifty things can happen, especially if you just don't feel like actually using the input funct/TIn and just return whatever the hell things you want from either state or external IO.
+
+Haskell is far easier to reason about, as the lack of external state that can change how the function runs simplifies it to just a single possible definition.
